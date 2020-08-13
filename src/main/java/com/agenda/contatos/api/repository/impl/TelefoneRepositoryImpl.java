@@ -14,8 +14,8 @@ public class TelefoneRepositoryImpl implements TelefoneRepositoryQuery {
 	@PersistenceContext
 	private EntityManager manager;
 
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Telefone> buscarTelefonesPorPessoa(Long idPessoa) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT tel FROM telefone tel ")
@@ -25,6 +25,17 @@ public class TelefoneRepositoryImpl implements TelefoneRepositoryQuery {
 		query.setParameter("idPessoa", idPessoa);
 		
 		return query.getResultList();
+	}
+
+	@Override
+	public void excluirPorPessoaId(Long id) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("DELETE FROM telefone WHERE id_pessoa = :id");
+		
+		Query query = manager.createQuery(sql.toString());
+		query.setParameter("id", id);
+		
+		query.executeUpdate();
 	}
 
 }

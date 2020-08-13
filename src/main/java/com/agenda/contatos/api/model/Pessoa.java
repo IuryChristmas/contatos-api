@@ -27,11 +27,15 @@ public class Pessoa {
 	
 	private String email;
 	
-	/*@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "telefone", joinColumns = @JoinColumn(name = "id"), 
-			inverseJoinColumns = @JoinColumn(name = "id_pessoa"))
-	private List<Telefone> telefones;*/
+	@OneToMany(mappedBy = "pessoa")
+	private List<Telefone> telefones;
+	
+	public Pessoa() {}
 
+	public Pessoa(Long id) {
+		this.id = id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -64,13 +68,13 @@ public class Pessoa {
 		this.email = email;
 	}
 
-	/*public List<Telefone> getTelefones() {
+	public List<Telefone> getTelefones() {
 		return telefones;
 	}
 
 	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
-	}*/
+	}
 
 	public Long getId() {
 		return id;

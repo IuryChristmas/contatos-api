@@ -7,4 +7,6 @@ import com.agenda.contatos.api.model.Telefone;
 public interface TelefoneRepositoryQuery {
 
 	public List<Telefone> buscarTelefonesPorPessoa(Long idPessoa);
+	
+	public void excluirPorPessoaId(Long id);
 }
