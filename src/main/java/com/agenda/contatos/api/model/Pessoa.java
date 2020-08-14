@@ -1,6 +1,6 @@
 package com.agenda.contatos.api.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 @Entity(name = "pessoa")
 public class Pessoa {
@@ -21,7 +20,7 @@ public class Pessoa {
 	
 	private String cpf;
 	
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	
 	private String email;
 	
@@ -34,7 +33,7 @@ public class Pessoa {
 		this.id = id;
 	}
 	
-	public Pessoa(Long id, String nome, String cpf, Date dataNascimento, String email) {
+	public Pessoa(Long id, String nome, String cpf, LocalDate dataNascimento, String email) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -58,11 +57,11 @@ public class Pessoa {
 		this.cpf = cpf;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

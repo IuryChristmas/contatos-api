@@ -1,7 +1,9 @@
 package com.agenda.contatos.api.business;
 
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.agenda.contatos.api.model.Pessoa;
 import com.agenda.contatos.api.repository.PessoaRepository;
 import com.agenda.contatos.api.repository.filter.PessoaFilter;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 @Service
 public class PessoaBusiness {
@@ -49,13 +52,23 @@ public class PessoaBusiness {
 
 	@Transactional(rollbackFor = Exception.class)
 	public Pessoa atualizar(Pessoa pessoa) {
-		pessoa = repository.saveAndFlush(pessoa);
-		
-		telefoneBusiness.salvarTelefonesPorPessoa(pessoa);
-		
 		List<Long> telefoneIds = pessoa.getTelefones().stream().map(telefone -> telefone.getId()).collect(Collectors.toList());
 		
+		pessoa = repository.save(pessoa);
+		
+		telefoneBusiness.salvarTelefonesPorPessoa(pessoa);
 		telefoneBusiness.excluirNotIn(telefoneIds, pessoa.getId());
+
+		return pessoa;
+	}
+
+	public Optional<Pessoa> buscarPorId(Long id) {
+		Optional<Pessoa> pessoa = repository.findById(id);
+		
+		if(pessoa.isPresent()) {
+			pessoa.get().setTelefones(telefoneBusiness.buscarTelefonesPorPessoa(id));
+		}
+		
 		return pessoa;
 	}
 

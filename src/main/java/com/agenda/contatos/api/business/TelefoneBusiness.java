@@ -16,9 +16,9 @@ public class TelefoneBusiness {
 	private TelefoneRepository repository;
 	
 	public void salvarTelefonesPorPessoa(Pessoa pessoa) {
-		if(pessoa.getId() != null && !pessoa.getTelefones().isEmpty()) {
+		if(pessoa.getId() != null && pessoa.getTelefones()!= null && !pessoa.getTelefones().isEmpty()) {
 			pessoa.getTelefones().forEach(telefone -> telefone.setPessoa(new Pessoa(pessoa.getId())));
-			pessoa.getTelefones().forEach(telefone -> repository.save(telefone));
+			pessoa.getTelefones().forEach(telefone -> repository.saveAndFlush(telefone));
 		}
 	}
 

@@ -1,6 +1,7 @@
 package com.agenda.contatos.api.controller;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.agenda.contatos.api.business.PessoaBusiness;
 import com.agenda.contatos.api.model.Pessoa;
-import com.agenda.contatos.api.repository.PessoaRepository;
 import com.agenda.contatos.api.repository.filter.PessoaFilter;
 
 @RestController
@@ -34,7 +34,6 @@ public class PessoaController {
 	
 	@PostMapping
 	public ResponseEntity<Pessoa> salvar(@RequestBody Pessoa pessoa) {
-		pessoa.setDataNascimento(new Date());
 		
 		return ResponseEntity.ok(business.salvar(pessoa));
 	}
@@ -43,6 +42,17 @@ public class PessoaController {
 	public ResponseEntity<Pessoa> atualizar(@RequestBody Pessoa pessoa) {
 		
 		return ResponseEntity.ok(business.atualizar(pessoa));
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
+		Optional<Pessoa> pessoa = business.buscarPorId(id);
+		
+		if(!pessoa.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.ok().body(pessoa);
 	}
 	
 	@DeleteMapping("{id}")
