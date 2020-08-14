@@ -23,10 +23,18 @@ public class Telefone {
 	
 	private String numero;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_pessoa")
 	private Pessoa pessoa;
+	
+	public Telefone() {}
 
+	public Telefone(Long id, String ddd, String numero) {
+		this.id = id;
+		this.ddd = ddd;
+		this.numero = numero;
+	}
+	
 	public Long getId() {
 		return id;
 	}

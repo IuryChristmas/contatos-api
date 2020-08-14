@@ -18,10 +18,10 @@ public class TelefoneRepositoryImpl implements TelefoneRepositoryQuery {
 	@SuppressWarnings("unchecked")
 	public List<Telefone> buscarTelefonesPorPessoa(Long idPessoa) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT tel FROM telefone tel ")
+		sql.append("SELECT new com.agenda.contatos.api.model.Telefone(tel.id, tel.ddd, tel.numero) FROM telefone tel ")
 			.append("WHERE tel.pessoa.id = :idPessoa");
 		
-		Query query = manager.createQuery(sql.toString(), Telefone.class);
+		Query query = manager.createQuery(sql.toString());
 		query.setParameter("idPessoa", idPessoa);
 		
 		return query.getResultList();
