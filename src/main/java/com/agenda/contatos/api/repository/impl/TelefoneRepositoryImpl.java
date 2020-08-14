@@ -38,4 +38,16 @@ public class TelefoneRepositoryImpl implements TelefoneRepositoryQuery {
 		query.executeUpdate();
 	}
 
+	@Override
+	public void excluirNotIn(List<Long> telefoneIds, Long idPessoa) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("DELETE FROM telefone WHERE id_pessoa = :id AND id NOT IN (:telefoneIds)");
+		
+		Query query = manager.createQuery(sql.toString());
+		query.setParameter("id", idPessoa);
+		query.setParameter("telefoneIds", telefoneIds);
+		
+		query.executeUpdate();
+	}
+
 }

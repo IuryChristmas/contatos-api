@@ -25,14 +25,21 @@ public class Pessoa {
 	
 	private String email;
 	
-	//@OneToMany(mappedBy = "pessoa")
-	@Transient
+	@OneToMany(mappedBy = "pessoa")
 	private List<Telefone> telefones;
 	
 	public Pessoa() {}
 
 	public Pessoa(Long id) {
 		this.id = id;
+	}
+	
+	public Pessoa(Long id, String nome, String cpf, Date dataNascimento, String email) {
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+		this.email = email;
 	}
 	
 	public String getNome() {

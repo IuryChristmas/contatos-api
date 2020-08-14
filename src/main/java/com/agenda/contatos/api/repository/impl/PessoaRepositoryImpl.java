@@ -29,9 +29,12 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 	public Page<Pessoa> buscar(PessoaFilter filter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Pessoa> criteria = builder.createQuery(Pessoa.class);
+		
 		Root<Pessoa> root = criteria.from(Pessoa.class);
 		
 		Predicate[] predicates = this.criarRestricoes(filter, builder, root);
+		criteria.select(builder.construct(Pessoa.class, root.get("id"), root.get("nome"), 
+				root.get("cpf"), root.get("dataNascimento"), root.get("email")));
 		criteria.where(predicates);
 		
 		TypedQuery<Pessoa> query = manager.createQuery(criteria);

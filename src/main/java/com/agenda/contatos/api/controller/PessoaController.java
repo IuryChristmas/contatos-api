@@ -42,7 +42,7 @@ public class PessoaController {
 	@PutMapping
 	public ResponseEntity<Pessoa> atualizar(@RequestBody Pessoa pessoa) {
 		
-		return ResponseEntity.ok(business.salvar(pessoa));
+		return ResponseEntity.ok(business.atualizar(pessoa));
 	}
 	
 	@DeleteMapping("{id}")

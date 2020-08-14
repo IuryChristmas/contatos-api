@@ -37,4 +37,8 @@ public class TelefoneBusiness {
 	public void excluir(Long id) {
 		repository.deleteById(id);
 	}
+
+	public void excluirNotIn(List<Long> telefoneIds, Long idPessoa) {
+		repository.excluirNotIn(telefoneIds, idPessoa);		
+	}
 }

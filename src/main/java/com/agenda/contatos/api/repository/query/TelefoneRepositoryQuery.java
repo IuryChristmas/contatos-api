@@ -9,4 +9,6 @@ public interface TelefoneRepositoryQuery {
 	public List<Telefone> buscarTelefonesPorPessoa(Long idPessoa);
 	
 	public void excluirPorPessoaId(Long id);
+	
+	void excluirNotIn(List<Long> telefoneIds, Long idPessoa);
 }
