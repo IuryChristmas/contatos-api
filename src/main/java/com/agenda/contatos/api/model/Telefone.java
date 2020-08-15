@@ -8,11 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity(name = "telefone")
-@Getter @Setter
 public class Telefone {
 
 	@Id
